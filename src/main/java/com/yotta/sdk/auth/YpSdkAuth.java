@@ -1,10 +1,7 @@
 package com.yotta.sdk.auth;
 
 import com.yotta.sdk.auth.config.YpSdkAuthConfiguration;
-import com.yotta.sdk.auth.domain.YpAuthConsentStatus;
-import com.yotta.sdk.auth.domain.YpAuthCreateAuthorization;
-import com.yotta.sdk.auth.domain.YpAuthCreateAuthorizationResult;
-import com.yotta.sdk.auth.domain.YpAuthUserDeliveryAddress;
+import com.yotta.sdk.auth.domain.*;
 import com.yotta.sdk.auth.req.impl.*;
 import com.yotta.sdk.core.exception.YpRequiredPropertyException;
 import com.yotta.sdk.core.service.YpCloseableHttpClientSupplierService;
@@ -80,8 +77,14 @@ public interface YpSdkAuth {
                         httpClientSupplierService,
                         username,
                         password
-                )
-        );
+                ),
+                new YpAuthScopeAddMerchantTokenHttpRequest(
+                        serverBaseUrl + configuration.getAddMerchantTokensEndpoint(),
+                        objectMapperService,
+                        httpClientSupplierService,
+                        username,
+                        password
+                ));
     }
 
     YpAuthCreateAuthorizationResult createAuthorization(YpAuthCreateAuthorization request);
@@ -95,6 +98,8 @@ public interface YpSdkAuth {
     String getFullName(String token);
 
     String getPhoneNumber(String token);
+
+    YpAuthMerchantTokens addMerchantToken(String token);
 
     YpAuthUserDeliveryAddress getDeliveryAddress(String token);
 }

@@ -1,9 +1,6 @@
 package com.yotta.sdk.auth;
 
-import com.yotta.sdk.auth.domain.YpAuthConsentStatus;
-import com.yotta.sdk.auth.domain.YpAuthCreateAuthorization;
-import com.yotta.sdk.auth.domain.YpAuthCreateAuthorizationResult;
-import com.yotta.sdk.auth.domain.YpAuthUserDeliveryAddress;
+import com.yotta.sdk.auth.domain.*;
 import com.yotta.sdk.core.req.YpRequest;
 import org.jetbrains.annotations.NotNull;
 
@@ -17,6 +14,8 @@ public class YpSdkAuthImpl implements YpSdkAuth {
     private final YpRequest<String, String> scopePhoneNumberRequest;
     private final YpRequest<String, YpAuthUserDeliveryAddress> scopeDeliveryAddressRequest;
 
+    private final YpRequest<String, YpAuthMerchantTokens> scopeAddMerchantTokenRequest;
+
     public YpSdkAuthImpl(
             @NotNull YpRequest<YpAuthCreateAuthorization, YpAuthCreateAuthorizationResult> createAuthorizationRequest,
             @NotNull YpRequest<String, YpAuthConsentStatus> consentStatusRequest,
@@ -24,7 +23,8 @@ public class YpSdkAuthImpl implements YpSdkAuth {
             @NotNull YpRequest<String, String> scopeEmailRequest,
             @NotNull YpRequest<String, String> scopeFullNameRequest,
             @NotNull YpRequest<String, String> scopePhoneNumberRequest,
-            @NotNull YpRequest<String, YpAuthUserDeliveryAddress> scopeDeliveryAddressRequest) {
+            @NotNull YpRequest<String, YpAuthUserDeliveryAddress> scopeDeliveryAddressRequest,
+            @NotNull YpRequest<String, YpAuthMerchantTokens> scopeAddMerchantTokenRequest) {
         this.createAuthorizationRequest = createAuthorizationRequest;
         this.consentStatusRequest = consentStatusRequest;
         this.exchangeTokenRequest = exchangeTokenRequest;
@@ -32,6 +32,7 @@ public class YpSdkAuthImpl implements YpSdkAuth {
         this.scopeFullNameRequest = scopeFullNameRequest;
         this.scopePhoneNumberRequest = scopePhoneNumberRequest;
         this.scopeDeliveryAddressRequest = scopeDeliveryAddressRequest;
+        this.scopeAddMerchantTokenRequest = scopeAddMerchantTokenRequest;
     }
 
     @Override
@@ -62,6 +63,11 @@ public class YpSdkAuthImpl implements YpSdkAuth {
     @Override
     public String getPhoneNumber(String token) {
         return scopePhoneNumberRequest.sendRequest(token);
+    }
+
+    @Override
+    public YpAuthMerchantTokens addMerchantToken(String token) {
+        return scopeAddMerchantTokenRequest.sendRequest(token);
     }
 
     @Override

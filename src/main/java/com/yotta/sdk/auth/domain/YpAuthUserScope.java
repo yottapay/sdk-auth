@@ -7,7 +7,9 @@ public enum YpAuthUserScope {
 
     SCOPE_PHONE_NUMBER("ext.phone"),
 
-    SCOPE_DELIVERY_ADDRESS("ext.deliveryaddr");
+    SCOPE_DELIVERY_ADDRESS("ext.deliveryaddr"),
+
+    SCOPE_ADD_MERCHANT_TOKEN("ext.addmerchanttoken");
 
 
     private final String scope;

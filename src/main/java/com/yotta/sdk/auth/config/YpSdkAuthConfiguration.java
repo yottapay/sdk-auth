@@ -10,7 +10,7 @@ import static com.yotta.sdk.core.config.YpSdkConfiguration.propertyPath;
 
 public interface YpSdkAuthConfiguration extends YpSdkConfiguration {
 
-    String SDK_NAME = "Yotta Pay SDK (Auth) (1.0.4)";
+    String SDK_NAME = "Yotta Pay SDK (Auth) (1.0.5)";
 
     static YpSdkAuthConfiguration createDefault() {
         return new YpSdkAuthConfigurationImpl();
@@ -98,6 +98,20 @@ public interface YpSdkAuthConfiguration extends YpSdkConfiguration {
         AuthProperties.ENDPOINT_GET_DELIVERY_ADDRESS.set(this, deliveryAddressEndpoint);
     }
 
+
+    @NotNull(exception = YpRequiredPropertyException.class)
+    default String getAddMerchantTokensEndpoint()
+            throws YpRequiredPropertyException {
+        return AuthProperties.ENDPOINT_ADD_MERCHANT_KEYS.get(this);
+    }
+
+
+    default void setAddMerchantTokensEndpoint(
+            @NotNull(exception = YpRequiredPropertyException.class) String addMerchantTokensEndpoint)
+            throws YpRequiredPropertyException {
+        AuthProperties.ENDPOINT_ADD_MERCHANT_KEYS.set(this, addMerchantTokensEndpoint);
+    }
+
     @NotNull(exception = YpRequiredPropertyException.class)
     default String getEmailEndpoint()
             throws YpRequiredPropertyException {
@@ -182,6 +196,13 @@ public interface YpSdkAuthConfiguration extends YpSdkConfiguration {
                 ENDPOINT_GET_DELIVERY_ADDRESS_KEY,
                 true,
                 "/external/authgate/data/user/get-delivery-addr"
+        );
+
+        private static final String ENDPOINT_ADD_MERCHANT_KEYS_KEY = propertyPath(PREFIX, "endpoints.add-merchant-keys");
+        public static final YpStringProperty ENDPOINT_ADD_MERCHANT_KEYS = new YpStringProperty(
+                ENDPOINT_ADD_MERCHANT_KEYS_KEY,
+                true,
+                "/external/authgate/data/user/add-merchant-token"
         );
 
         private static final String ENDPOINT_GET_EMAIL_KEY = propertyPath(PREFIX, "endpoints.get-email");
