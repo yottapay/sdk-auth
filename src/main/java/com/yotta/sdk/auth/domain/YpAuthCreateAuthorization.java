@@ -14,6 +14,10 @@ public class YpAuthCreateAuthorization {
 
     private String failUrl;
 
+    public void addCustomScope(String customScope) {
+        this.scopes.add(customScope);
+    }
+
     public void addScopes(YpAuthUserScope... scopes) {
         for (YpAuthUserScope scope : scopes) {
             this.scopes.add(scope.getScope());
