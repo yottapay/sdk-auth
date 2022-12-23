@@ -10,7 +10,7 @@ import static com.yotta.sdk.core.config.YpSdkConfiguration.propertyPath;
 
 public interface YpSdkAuthConfiguration extends YpSdkConfiguration {
 
-    String SDK_NAME = "Yotta Pay SDK (Auth) (1.0.9)";
+    String SDK_NAME = "Yotta Pay SDK (Auth) (1.0.10)";
 
     static YpSdkAuthConfiguration createDefault() {
         return new YpSdkAuthConfigurationImpl();
